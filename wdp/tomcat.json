@@ -1,0 +1,15 @@
+{
+    "service": {
+        "name": "tomcat",
+        "tags": [
+            "server",
+            "web-container"
+        ],
+         "port": 8080,
+         "check": {
+             "name": "status",
+             "script": "/etc/consul/scripts/check_tomcat.sh ",
+             "interval": "30s"
+         }
+     }
+}
