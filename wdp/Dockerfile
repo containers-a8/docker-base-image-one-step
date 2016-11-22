@@ -39,4 +39,44 @@ RUN groupadd -g 900 tomcat \
 
 ENV "SERVICE_TAGS=centos,jre-180u111-2b15,tomcat-858"
 
-CMD ["/usr/local/tomcat/bin/catalina.sh", "run"]
+#These are the additions that we made to add consul to the base image and other additions (e.g wrapper scripts)
+
+#Copy the  wrapper file and use that to start Tomcat
+COPY catalina-wrapper.sh /usr/local/tomcat/bin/catalina-wrapper.sh
+
+#Change permissions so that execute permissions are available in catalina-wrapper.sh
+RUN chmod 755 /usr/local/tomcat/bin/catalina-wrapper.sh
+
+#Copy the script to check the status of tomcat server
+COPY check_tomcat.sh /etc/consul/scripts/check_tomcat.sh
+
+#Change permissions to execute check_tomcat.sh
+RUN chmod 755 /etc/consul/scripts/check_tomcat.sh
+
+RUN yum install unzip -y
+
+# install consul agent
+ADD https://releases.hashicorp.com/consul/0.7.1/consul_0.7.1_linux_amd64.zip /tmp/consul.zip
+RUN cd /bin && \
+    unzip /tmp/consul.zip&& \
+    chmod +x /bin/consul && \
+    mkdir -p {/data/consul,/etc/consul.d} && \
+    rm /tmp/consul.zip
+
+# copy service and check definition, as we wrote them earlier
+ADD tomcat.json /etc/consul.d/tomcat.json
+
+# Install goreman - foreman clone written in Go language
+ADD https://github.com/mattn/goreman/releases/download/v0.0.7/goreman_linux_amd64.tar.gz /tmp/goreman.tar.gz
+RUN tar -xvzf /tmp/goreman.tar.gz -C /usr/local/bin --strip-components 1 && \
+    rm -r  /tmp/goreman*
+
+# copy startup script
+ADD Procfile /root/Procfile
+
+# launch both tomcat  server and consul agent - the CMD should be removed later. I am using it for testing purposes now 
+ENTRYPOINT ["goreman"]
+CMD ["-f", "/root/Procfile", "start"]
+
+
+#CMD ["/usr/local/tomcat/bin/catalina.sh", "run"]
