@@ -75,8 +75,8 @@ RUN tar -xvzf /tmp/goreman.tar.gz -C /usr/local/bin --strip-components 1 && \
 ADD Procfile /root/Procfile
 
 # launch both tomcat  server and consul agent - the CMD should be removed later. I am using it for testing purposes now 
-ENTRYPOINT ["goreman"]
-CMD ["-f", "/root/Procfile", "start"]
+#ENTRYPOINT ["goreman"]
+#CMD ["-f", "/root/Procfile", "start"]
 
 
 #CMD ["/usr/local/tomcat/bin/catalina.sh", "run"]
