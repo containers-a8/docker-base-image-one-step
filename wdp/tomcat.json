@@ -1,7 +1,7 @@
 {
     "service": {
-        "name": "Tomcat web container",
-		"notes": "Check that the tomcat container is online",
+        "name": "TomcatWC",
+	"notes": "Check that the tomcat container is online",
         "tags": [
             "web-container",
 			"centos",
@@ -10,7 +10,7 @@
         ],
          "port": 8080,
          "check": {
-			 "DeregisterCriticalServiceAfter": "30m",
+	     "DeregisterCriticalServiceAfter": "30m",
              "name": "status",
              "script": "/etc/consul/scripts/check_tomcat.sh ",
              "interval": "30s"
