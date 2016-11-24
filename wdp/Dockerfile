@@ -66,18 +66,3 @@ RUN cd /bin && \
 # copy service and check definition, as we wrote them earlier
 ADD tomcat.json /etc/consul.d/tomcat.json
 
-
-<<<<<<< HEAD
-# copy startup script
-ADD Procfile /root/Procfile
-
-# launch both tomcat  server and consul agent - the CMD should be removed later. I am using it for testing purposes now 
-#ENTRYPOINT ["goreman"]
-#CMD ["-f", "/root/Procfile", "start"]
-
-
-#CMD ["/usr/local/tomcat/bin/catalina.sh", "run"]
-=======
-# launch the catalina-wrapper script. This CMD should be removed later. I am using it for testing purposes now 
-CMD ["/usr/local/tomcat/bin/catalina-wrapper.sh", "run"]
->>>>>>> master
