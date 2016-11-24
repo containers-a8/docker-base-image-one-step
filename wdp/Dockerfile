@@ -66,17 +66,6 @@ RUN cd /bin && \
 # copy service and check definition, as we wrote them earlier
 ADD tomcat.json /etc/consul.d/tomcat.json
 
-# Install goreman - foreman clone written in Go language
-ADD https://github.com/mattn/goreman/releases/download/v0.0.7/goreman_linux_amd64.tar.gz /tmp/goreman.tar.gz
-RUN tar -xvzf /tmp/goreman.tar.gz -C /usr/local/bin --strip-components 1 && \
-    rm -r  /tmp/goreman*
 
-# copy startup script
-ADD Procfile /root/Procfile
-
-# launch both tomcat  server and consul agent - the CMD should be removed later. I am using it for testing purposes now 
-ENTRYPOINT ["goreman"]
-CMD ["-f", "/root/Procfile", "start"]
-
-
-#CMD ["/usr/local/tomcat/bin/catalina.sh", "run"]
+# launch the catalina-wrapper script. This CMD should be removed later. I am using it for testing purposes now 
+CMD ["/usr/local/tomcat/bin/catalina-wrapper.sh", "run"]

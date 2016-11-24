@@ -9,8 +9,6 @@ cleanup()
 deregister()
 {
   echo "About to de-register service: TomcatWC"
-#  curl -X PUT  http://localhost:8500/v1/agent/service/deregister/TomcatWC
-#  response=$(curl --write-out %{http_code} --silent --output /dev/null servername)
 
    response=$(curl --write-out %{http_code} --silent --output /dev/null -X PUT  http://localhost:8500/v1/agent/service/deregister/TomcatWC)
    
@@ -27,10 +25,11 @@ deregister()
 
 register()
 {
-  echo "Register service"
+  echo "About to register TomcatWC service"
   #  Start the consul agent
-  #  Extract the Consul host from the environment variable - $CONSUL_HOST
-  #consul agent -join $CONSUL_HOST -data-dir /data/consul -config-dir /etc/consul.d
+  #Start the consul agent in background
+  consul agent -join $CONSUL_HOST -data-dir /data/consul -config-dir /etc/consul.d   &
+
 }
 
 trap cleanup SIGTERM SIGINT
