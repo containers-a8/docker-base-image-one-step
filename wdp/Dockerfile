@@ -68,4 +68,4 @@ ADD tomcat.json /etc/consul.d/tomcat.json
 
 
 # launch the catalina-wrapper script. This CMD should be removed later. I am using it for testing purposes now 
-CMD ["/usr/local/tomcat/bin/catalina-wrapper.sh", "run"]
+#CMD ["/usr/local/tomcat/bin/catalina-wrapper.sh", "run"]
