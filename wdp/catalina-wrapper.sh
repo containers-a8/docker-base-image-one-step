@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo "ServiceName:" $ServiceName
+
+
 cleanup()
 {
   echo "Trapped signal. Cleaning up"
@@ -8,9 +11,9 @@ cleanup()
 
 deregister()
 {
-  echo "About to de-register service: TomcatWC"
+  echo "About to de-register service: " $ServiceName
 
-   response=$(curl --write-out %{http_code} --silent --output /dev/null -X PUT  http://localhost:8500/v1/agent/service/deregister/TomcatWC)
+   response=$(curl --write-out %{http_code} --silent --output /dev/null -X PUT  http://localhost:8500/v1/agent/service/deregister/$ServiceName)
    
    echo "Response code is:" ${response}
    if [ "${response}" == '200' ]                                                                                                                                                        
@@ -25,7 +28,7 @@ deregister()
 
 register()
 {
-  echo "About to register TomcatWC service"
+  echo "About to register service:" $ServiceName
   #  Start the consul agent
   #Start the consul agent in background
   consul agent -join $CONSUL_HOST -data-dir /data/consul -config-dir /etc/consul.d   &
