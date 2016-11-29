@@ -1,0 +1,7 @@
+supervise: true
+app: [ "catalina.sh", "run" ]
+enpoint_port: 8080
+registry_url: http://wdp-a8-registry.mybluemix.net
+controller_url: http://wdp-a8-controller.mybluemix.net
+register: true
+proxy: true

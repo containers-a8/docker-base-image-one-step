@@ -56,16 +56,23 @@ RUN chmod 755 /etc/consul/scripts/check_tomcat.sh
 RUN yum install unzip -y
 
 # install consul agent
-ADD https://releases.hashicorp.com/consul/0.7.1/consul_0.7.1_linux_amd64.zip /tmp/consul.zip
-RUN cd /bin && \
-    unzip /tmp/consul.zip&& \
-    chmod +x /bin/consul && \
-    mkdir -p {/data/consul,/etc/consul.d} && \
-    rm /tmp/consul.zip
+#ADD https://releases.hashicorp.com/consul/0.7.1/consul_0.7.1_linux_amd64.zip /tmp/consul.zip
+#RUN cd /bin && \
+#    unzip /tmp/consul.zip&& \
+#    chmod +x /bin/consul && \
+#    mkdir -p {/data/consul,/etc/consul.d} && \
+#    rm /tmp/consul.zip
 
 # copy service and check definition, as we wrote them earlier
-ADD tomcat.json /etc/consul.d/tomcat.json
+#ADD tomcat.json /etc/consul.d/tomcat.json
 
+# install Amalgam8 sidecar
+# RUN wget -qO- https://github.com/amalgam8/amalgam8/releases/download/v0.4.2/a8sidecar.sh | sh
+RUN curl -sSL https://github.com/amalgam8/amalgam8/releases/download/v0.4.2/a8sidecar.sh | sh
+RUN mkdir -p /etc/a8
+ADD a8sidecar-config.yml /etc/a8/config.yml
+ENV A8_SERVICE=service_name:service_tags
+"ENTRYPOINT ["a8sidecar", "--config", "/etc/a8/config.yml"]"
 
-# launch the catalina-wrapper script. This CMD should be removed later. I am using it for testing purposes now 
+# launch the catalina-wrapper script. This CMD should be removed later. I am using it for testing purposes now
 #CMD ["/usr/local/tomcat/bin/catalina-wrapper.sh", "run"]
