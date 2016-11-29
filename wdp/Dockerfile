@@ -70,9 +70,9 @@ RUN yum install unzip -y
 # RUN wget -qO- https://github.com/amalgam8/amalgam8/releases/download/v0.4.2/a8sidecar.sh | sh
 RUN curl -sSL https://github.com/amalgam8/amalgam8/releases/download/v0.4.2/a8sidecar.sh | sh
 RUN mkdir -p /etc/a8
-ADD a8sidecar-config.yml /etc/a8/config.yml
+ADD a8sidecar-config.yaml /etc/a8/config.yaml
 ENV A8_SERVICE=service_name:service_tags
-"ENTRYPOINT ["a8sidecar", "--config", "/etc/a8/config.yml"]"
+"ENTRYPOINT ["a8sidecar", "--config", "/etc/a8/config.yaml"]"
 
 # launch the catalina-wrapper script. This CMD should be removed later. I am using it for testing purposes now
 #CMD ["/usr/local/tomcat/bin/catalina-wrapper.sh", "run"]
