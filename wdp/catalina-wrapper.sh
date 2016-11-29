@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "ServiceName:" $ServiceName
+echo "ServiceName:" $SERVICE_NAME
 
 
 cleanup()
@@ -11,9 +11,9 @@ cleanup()
 
 deregister()
 {
-  echo "About to de-register service: " $ServiceName
+  echo "About to de-register service: " $SERVICE_NAME
 
-   response=$(curl --write-out %{http_code} --silent --output /dev/null -X PUT  http://localhost:8500/v1/agent/service/deregister/$ServiceName)
+   response=$(curl --write-out %{http_code} --silent --output /dev/null -X PUT  http://localhost:8500/v1/agent/service/deregister/$SERVICE_NAME)
    
    echo "Response code is:" ${response}
    if [ "${response}" == '200' ]                                                                                                                                                        
@@ -28,7 +28,7 @@ deregister()
 
 register()
 {
-  echo "About to register service:" $ServiceName
+  echo "About to register service:" $SERVICE_NAME
   #  Start the consul agent
   #Start the consul agent in background
   consul agent -join $CONSUL_HOST -data-dir /data/consul -config-dir /etc/consul.d   &
