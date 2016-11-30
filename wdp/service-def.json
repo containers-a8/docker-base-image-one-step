@@ -1,19 +1,19 @@
 {
-    "service": {
-        "name": "$SERVICE_NAME",
-	"notes": "Check that the tomcat container is online",
-        "tags": [
-            "web-container",
-			"centos",
-			"jre-180u111-2b15",
-			"tomcat-858"
+    \"service\": {
+        \"name\": \"$SERVICE_NAME\",
+	\"notes\": \"Check that the tomcat container is online\",
+        \"tags\": [
+            \"web-container\",
+			\"centos\",
+			\"jre-180u111-2b15\",
+			\"tomcat-858\"
         ],
-         "port": 8080,
-         "check": {
-	     "DeregisterCriticalServiceAfter": "30m",
-             "name": "status",
-             "script": "/etc/consul/scripts/check_tomcat.sh ",
-             "interval": "30s"
+         \"port\": 8080,
+         \"check\": {
+	     \"DeregisterCriticalServiceAfter\": \"30m\",
+             \"name\": \"status\",
+             \"script\": \"/etc/consul/scripts/check_tomcat.sh \",
+             \"interval\": \"30s\"
          }
      }
 }
