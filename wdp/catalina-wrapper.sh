@@ -31,6 +31,14 @@ register()
   echo "About to register service:" $SERVICE_NAME
   #  Start the consul agent
   #Start the consul agent in background
+
+  #Create the JSON file with the SERVICE_NAME picked from the ENV
+  /usr/local/generate-service-from-template.sh /etc/consul.d/service-def.json > /etc/consul.d/new-service-def.json
+  
+  #The service definition file is written  to a new-service-def file with the information and it can now be used for registration
+  #The original service-def.json (template file) is deleted
+  rm /etc/consul.d/service-def.json
+
   consul agent -join $CONSUL_HOST -data-dir /data/consul -config-dir /etc/consul.d   &
 
 }
