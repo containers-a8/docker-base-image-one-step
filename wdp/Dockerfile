@@ -64,7 +64,13 @@ RUN cd /bin && \
     rm /tmp/consul.zip
 
 # copy service and check definition, as we wrote them earlier
-ADD tomcat.json /etc/consul.d/tomcat.json
+ADD service-def.json /etc/consul.d/service-def.json
+
+#Copy the file that changes the name in service-def.json to use the info from the ENV
+COPY generate-service-from-template.sh /usr/local/generate-service-from-template.sh
+
+#Change permissions to execute this script
+RUN chmod 755 /usr/local/generate-service-from-template.sh
 
 
 # launch the catalina-wrapper script. This CMD should be removed later. I am using it for testing purposes now 
