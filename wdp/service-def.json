@@ -1,6 +1,6 @@
 {
     "service": {
-        "name": "TomcatWC",
+        "name": "$SERVICE_NAME",
 	"notes": "Check that the tomcat container is online",
         "tags": [
             "web-container",
