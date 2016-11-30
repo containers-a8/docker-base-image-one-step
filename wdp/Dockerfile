@@ -72,6 +72,8 @@ COPY generate-service-from-template.sh /usr/local/generate-service-from-template
 #Change permissions to execute this script
 RUN chmod 755 /usr/local/generate-service-from-template.sh
 
+#Change Permissions for the files in the /etc/consul.d/*.json files
+RUN chmod 777 /etc/consul.d/*.json
 
 # launch the catalina-wrapper script. This CMD should be removed later. I am using it for testing purposes now 
 #CMD ["/usr/local/tomcat/bin/catalina-wrapper.sh", "run"]
