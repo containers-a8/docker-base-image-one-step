@@ -10,7 +10,7 @@
         ],
          \"port\": 8080,
          \"check\": {
-	     \"DeregisterCriticalServiceAfter\": \"30m\",
+	     \"DeregisterCriticalServiceAfter\": \"5m\",
              \"name\": \"status\",
              \"script\": \"/etc/consul/scripts/check_tomcat.sh \",
              \"interval\": \"30s\"
