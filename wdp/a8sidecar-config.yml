@@ -7,6 +7,7 @@ controller:
   url: http://wdp-a8-controller.mybluemix.net
 register: true
 proxy: true
-commands:
-  - cmd: [ "/usr/local/tomcat/bin/catalina.sh", "run" ]
-    on_exit: terminate
+# Command is run from the service container using CMD
+#commands:
+#  - cmd: [ "/usr/local/tomcat/bin/catalina.sh", "run" ]
+#    on_exit: terminate
